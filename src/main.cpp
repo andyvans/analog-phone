@@ -12,10 +12,11 @@ void loop()
   ringer.StartRinging();
 
   auto now = millis();
-  while (millis() < now + 15000)
+  while (millis() < now + 10000)
   {
     ringer.Ping();
   }
   
-  ringer.StopRinging();  
+  ringer.StopRinging();
+  delay(5000); 
 }

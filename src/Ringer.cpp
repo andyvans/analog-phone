@@ -39,7 +39,7 @@ void Ringer::RestartSequence()
     sequences[2].endTime = sequences[1].endTime + 400;
 
     sequences[3].isBellOn = false;
-    sequences[3].endTime = sequences[2].endTime + 1000;
+    sequences[3].endTime = sequences[2].endTime + 1200;
 }
 
 void Ringer::Ring()

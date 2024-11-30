@@ -1,22 +1,34 @@
+// Analog phone project
+//       _______
+//     /` _____ `\;,
+//    /__(^===^)__\';,
+//      /  :::  \   ,;
+//     |   :::   | ,;'
+//     '._______.'`
+
 #include <Arduino.h>
 #include "Ringer.h"
+#include "Dialer.h"
 
-Ringer ringer;
-void setup() 
+Ringer* ringer;
+Dialer* dialer;
+
+void setup()
 {
-  Serial.begin(115200);  
+  ringer = new Ringer();
+  dialer = new Dialer();
+  Serial.begin(115200);
 }
 
-void loop() 
-{  
-  ringer.StartRinging();
-
-  auto now = millis();
-  while (millis() < now + 10000)
+void loop()
+{
+  dialer->Tick();
+  if (dialer->HasDialedNumber())
   {
-    ringer.Ping();
+    auto dialedNumber = dialer->GetDialedNumber();
+    Serial.println(dialedNumber);
+    dialer->Reset();
+
+    ringer->StartRinging(dialedNumber);
   }
-  
-  ringer.StopRinging();
-  delay(5000); 
 }

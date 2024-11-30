@@ -6,8 +6,9 @@ Ringer::Ringer()
     pinMode(H_BRIDGE_PIN2, OUTPUT);
 }
 
-void Ringer::StartRinging()
+void Ringer::StartRinging(int ringCount)
 {
+    ringCount = ringCount;
     isRinging = true;
     RestartSequence();
 }
@@ -17,7 +18,7 @@ void Ringer::StopRinging()
     isRinging = false;
 }
 
-void Ringer::Ping()
+void Ringer::Tick()
 {
     if (isRinging)
     {
@@ -27,7 +28,6 @@ void Ringer::Ping()
 
 void Ringer::RestartSequence()
 {
-    //Serial.println("Restart sequence");
     sequence = 0;
     sequences[0].isBellOn = true;
     sequences[0].endTime = millis() + 400;
@@ -63,9 +63,17 @@ void Ringer::Ring()
         sequence++;
         if (sequence == 4)
         {
-            RestartSequence();
+            ringCount--;
+            if (ringCount == 0)
+            {
+                StopRinging();
+            }
+            else
+            {
+                RestartSequence();
+            }
         }
-    }    
+    }
 }
 
 void Ringer::StopBell()

@@ -9,12 +9,12 @@ struct Sequence
 };
 
 class Ringer
-{ 
+{
 public:
   Ringer();
 
-  void Ping();
-  void StartRinging();
+  void Tick();
+  void StartRinging(int ringCount);
   void StopRinging();
 
 private:
@@ -23,6 +23,7 @@ private:
   void Ring();
   void Bell();
 
+  int ringCount = 0;
   bool isRinging = false;
   int sequence = 0;
   Sequence sequences[4];

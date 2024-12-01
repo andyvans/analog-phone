@@ -8,13 +8,14 @@ Ringer::Ringer()
 
 void Ringer::StartRinging()
 {
-    Serial.print("Start ringing");
+    Serial.println("Start ringing");
     isRinging = true;
     RestartSequence();
 }
 
 void Ringer::StopRinging()
 {
+    Serial.println("Stop ringing");
     StopBell();
     isRinging = false;
 }

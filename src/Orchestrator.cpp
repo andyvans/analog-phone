@@ -22,11 +22,11 @@ void Orchestrator::Tick()
     {
         if (reminder->IsAlertExpired())
         {
-            Serial.println("Reminder expired. Ringer stopped");
+            Serial.println("Reminder expired");
         }
         else
         {
-            Serial.println("Receiver picked up. Ringer stopped");
+            Serial.println("Receiver picked up");
         }
         ringer->StopRinging();
         reminder->Reset();

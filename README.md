@@ -8,7 +8,7 @@
 ```
 # Analog phone project
 
-This was a phone in my house a when I was a kid. The phone uses pulse dialing and was configured for the POTS in New Zealand. It was a G.E.C. (New Zealand) Ltd. phone.
+This project upgrades an old 1970s G.E.C. New Zealand Ltd POTS phone. The phone uses pulse dialing.
 
 ## Feature 1: Reminder system
 

@@ -24,5 +24,5 @@ private:
     bool isAwaitingDigit = false;
     int digitStartTime = 0;
     unsigned long lastDialTime = 0;
-    int dialerCount = 0;
+    int pulseCount = 0;
 };

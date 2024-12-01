@@ -11,7 +11,7 @@ void Dialer::Reset()
 {
     isDialing = false;
     lastDialTime = 0;
-    dialerCount = 0;
+    pulseCount = 0;
     dialedNumber = -1;
 }
 
@@ -27,9 +27,9 @@ bool Dialer::HasDialedNumber()
 
 void Dialer::SetDialedNumber(int number)
 {
-    Serial.print("Number dialed:");
+    Serial.print("Number dialed: ");
     Serial.println(number);
-    dialerCount = 0;
+    pulseCount = 0;
     dialedNumber = number;
 }
 
@@ -75,14 +75,14 @@ void Dialer::Tick()
         lastDialTime = millis();
 
         // NZ phones are 0-9, so 10 pulses are allowed
-        if (dialerCount > 0 && dialerCount <= 10)
+        if (pulseCount > 0 && pulseCount <= 10)
         {
-            SetDialedNumber(10 - dialerCount);
+            SetDialedNumber(10 - pulseCount);
         }
-        else if (dialerCount > 10)
+        else if (pulseCount > 10)
         {
-            Serial.print("Invalid digits dialed: ");
-            Serial.println(dialerCount);
+            Serial.print("Invalid pulses read: ");
+            Serial.println(pulseCount);
         }
     }
     else if (newIsDialing && !isDialing)
@@ -103,7 +103,7 @@ void Dialer::Tick()
         auto digitRelease = digitalRead(DIALER_PIN2) == HIGH;
         if (digitRelease && (millis() - digitStartTime) > 40)
         {
-            dialerCount++;
+            pulseCount++;
             isAwaitingDigit = false;
             //Serial.print("digit ++");
         }

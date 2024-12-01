@@ -39,4 +39,24 @@ void Reminder::Reset()
     Serial.println("Reminder reset");
     isReminderTime = false;
     isReminderSet = false;
+    reminderTime = 0;
+    reminderStartTime = 0;
+    isAlerting = false;
+}
+
+void Reminder::StartReminderAlert()
+{
+    Serial.println("Reminder alert started");
+    isAlerting = true;
+    alertStartTime = millis();
+}
+
+bool Reminder::IsAlerting()
+{
+    return isAlerting;
+}
+
+bool Reminder::ReminderExpired()
+{
+    return isAlerting && alertStartTime + 10000 < millis();
 }

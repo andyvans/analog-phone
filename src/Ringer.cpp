@@ -17,6 +17,7 @@ void Ringer::StartRinging(int ringCount)
 
 void Ringer::StopRinging()
 {
+    StopBell();
     isRinging = false;
 }
 
@@ -72,7 +73,7 @@ void Ringer::Ring()
         if (sequence == 4)
         {
             ringCount--;
-            if (ringCount == 0)
+            if (ringCount <= 0)
             {
                 StopRinging();
             }

@@ -8,6 +8,7 @@ struct Sequence
   bool isBellOn = false;
 };
 
+// This class manages the ringer
 class Ringer
 {
 public:

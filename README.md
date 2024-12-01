@@ -13,11 +13,11 @@ This was a phone in my house a when I was a kid. The phone uses pulse dialing an
 
 ## Feature 1: Reminder system
 
-If the receiver is down, then you can dial number between 1 and 9. This will set a reminder for that number of minutes. When the time is up, the phone will ring 3 times.
+If the receiver is down, then you can dial number between 1 and 9. This will set a reminder for that number of minutes. When the time is up, the phone will ring 3 times.  The reminder ring can be stopped by lifting the receiver.
 
 ## Feature 2: Voice AI assistant
 
-to be continued...
+Not built yet. To be continued...
 
 ## Electronics
 

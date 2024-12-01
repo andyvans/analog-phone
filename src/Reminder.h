@@ -11,9 +11,9 @@ public:
     bool IsReminderSet();
     bool IsReminderTime();
     void Reset();
-    void StartReminderAlert();
+    void StartAlert();
     bool IsAlerting();
-    bool ReminderExpired();
+    bool IsAlertExpired();
 
 private:
     unsigned long reminderTime = 0;

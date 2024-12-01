@@ -15,7 +15,7 @@ public:
   Ringer();
 
   void Tick();
-  void StartRinging(int ringCount);
+  void StartRinging();
   void StopRinging();
   bool IsRinging();
 
@@ -25,7 +25,6 @@ private:
   void Ring();
   void Bell();
 
-  int ringCount = 0;
   bool isRinging = false;
   int sequence = 0;
   Sequence sequences[4];

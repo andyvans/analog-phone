@@ -44,7 +44,7 @@ void Reminder::Reset()
     isAlerting = false;
 }
 
-void Reminder::StartReminderAlert()
+void Reminder::StartAlert()
 {
     Serial.println("Reminder alert started");
     isAlerting = true;
@@ -56,7 +56,7 @@ bool Reminder::IsAlerting()
     return isAlerting;
 }
 
-bool Reminder::ReminderExpired()
+bool Reminder::IsAlertExpired()
 {
     return isAlerting && alertStartTime + 10000 < millis();
 }

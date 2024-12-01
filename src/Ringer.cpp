@@ -6,11 +6,9 @@ Ringer::Ringer()
     pinMode(H_BRIDGE_PIN2, OUTPUT);
 }
 
-void Ringer::StartRinging(int ringCount)
+void Ringer::StartRinging()
 {
-    Serial.print("Start ringing count: ");
-    Serial.println(ringCount);
-    ringCount = ringCount;
+    Serial.print("Start ringing");
     isRinging = true;
     RestartSequence();
 }
@@ -72,15 +70,7 @@ void Ringer::Ring()
         sequence++;
         if (sequence == 4)
         {
-            ringCount--;
-            if (ringCount <= 0)
-            {
-                StopRinging();
-            }
-            else
-            {
-                RestartSequence();
-            }
+            RestartSequence();
         }
     }
 }

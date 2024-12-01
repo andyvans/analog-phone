@@ -13,14 +13,14 @@ void Orchestrator::Tick()
     if (reminder->IsReminderTime() && !reminder->IsAlerting())
     {
         Serial.println("Reminder time. Ringer started");
-        reminder->StartReminderAlert();
-        ringer->StartRinging(3);
+        reminder->StartAlert();
+        ringer->StartRinging();
     }
 
     // Stop the ringer if the receiver is picked up or the alert has expired  
-    if ((!dialer->IsReceiverDown() && reminder->IsAlerting()) || reminder->ReminderExpired())
+    if ((!dialer->IsReceiverDown() && reminder->IsAlerting()) || reminder->IsAlertExpired())
     {
-        if (reminder->ReminderExpired())
+        if (reminder->IsAlertExpired())
         {
             Serial.println("Reminder expired. Ringer stopped");
         }

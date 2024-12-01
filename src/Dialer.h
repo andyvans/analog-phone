@@ -2,6 +2,7 @@
 #include "Arduino.h"
 #include "Constants.h"
 
+// This class manages the pulse dialler and the receiver hook switch
 class Dialer
 {
 public:
@@ -12,12 +13,16 @@ public:
     bool HasDialedNumber();
     int GetDialedNumber();
     void Reset();
+    bool IsReceiverDown();
 
 private:
+    void SetDialedNumber(int number);
+    bool isReceiverDown = false;
+    int receiverChangeTime = 0;
+    int dialedNumber = -1;
     bool isDialing = false;
     bool isAwaitingDigit = false;
     int digitStartTime = 0;
-    bool hasDialedNumber = false;
     unsigned long lastDialTime = 0;
     int dialerCount = 0;
 };

@@ -8,6 +8,8 @@ Ringer::Ringer()
 
 void Ringer::StartRinging(int ringCount)
 {
+    Serial.print("Start ringing count: ");
+    Serial.println(ringCount);
     ringCount = ringCount;
     isRinging = true;
     RestartSequence();
@@ -26,6 +28,7 @@ void Ringer::Tick()
     }
 }
 
+// This is the sequence of the bell ringing and is a close approximation of the sound of NZ 1980s POTS bell ringing
 void Ringer::RestartSequence()
 {
     sequence = 0;

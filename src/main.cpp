@@ -9,26 +9,27 @@
 #include <Arduino.h>
 #include "Ringer.h"
 #include "Dialer.h"
+#include "Reminder.h"
+#include "Orchestrator.h"
 
 Ringer* ringer;
 Dialer* dialer;
+Reminder* reminder;
+Orchestrator* orchestrator;
 
 void setup()
 {
+  Serial.begin(115200);
   ringer = new Ringer();
   dialer = new Dialer();
-  Serial.begin(115200);
+  reminder = new Reminder();
+  orchestrator = new Orchestrator(dialer, ringer, reminder);
 }
 
 void loop()
 {
   dialer->Tick();
-  if (dialer->HasDialedNumber())
-  {
-    auto dialedNumber = dialer->GetDialedNumber();
-    Serial.println(dialedNumber);
-    dialer->Reset();
-
-    ringer->StartRinging(dialedNumber);
-  }
+  ringer->Tick();
+  reminder->Tick();
+  orchestrator->Tick();
 }

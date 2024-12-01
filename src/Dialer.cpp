@@ -4,14 +4,15 @@ Dialer::Dialer()
 {
     pinMode(DIALER_PIN1, INPUT_PULLUP);
     pinMode(DIALER_PIN2, INPUT_PULLUP);
+    pinMode(RECEIVER_PIN, INPUT_PULLUP);
 }
 
 void Dialer::Reset()
 {
     isDialing = false;
-    hasDialedNumber = false;
     lastDialTime = 0;
     dialerCount = 0;
+    dialedNumber = -1;
 }
 
 bool Dialer::IsDialing()
@@ -21,40 +22,80 @@ bool Dialer::IsDialing()
 
 bool Dialer::HasDialedNumber()
 {
-    return hasDialedNumber;
+    return dialedNumber >= 0;
 }
 
-// Returns the dialed number and resets the dialer
+void Dialer::SetDialedNumber(int number)
+{
+    Serial.print("Number dialed:");
+    Serial.println(number);
+    dialerCount = 0;
+    dialedNumber = number;
+}
+
 int Dialer::GetDialedNumber()
 {
-    // NZ phone dialers are 0-9
-    auto dialedNumber = 10 - dialerCount;
-    dialerCount = 0;
-    return dialedNumber;
+    auto newDialedNumber = dialedNumber;
+    dialedNumber = -1;
+    return newDialedNumber;
+}
+
+bool Dialer::IsReceiverDown()
+{
+    return isReceiverDown;
 }
 
 // Count the number of dialer pulses
 void Dialer::Tick()
 {
-    auto newIsDialing = digitalRead(DIALER_PIN1) == LOW;
+    // Check if the receiver is down
+    auto newIsReceiverDown = digitalRead(RECEIVER_PIN) == HIGH;
+    auto newReceiverChangeTime = millis();
+    auto allowChange = (newReceiverChangeTime - receiverChangeTime) > 200;
+    if (!isReceiverDown && newIsReceiverDown && allowChange)
+    {
+        Serial.println("Receiver down");
+        Reset();
+        receiverChangeTime = newReceiverChangeTime;
+    }
+    else if (isReceiverDown && !newIsReceiverDown && allowChange)
+    {
+        Serial.println("Receiver up");
+        Reset();
+        receiverChangeTime = newReceiverChangeTime;
+    }
+    isReceiverDown = newIsReceiverDown;
 
+    // Check if the dialer is dialing
+    auto newIsDialing = digitalRead(DIALER_PIN1) == LOW;
     if (!newIsDialing && isDialing)
     {
         //Serial.println("end");
         isDialing = false;
-        hasDialedNumber = dialerCount > 0;
         lastDialTime = millis();
-        return;
+
+        // NZ phones are 0-9, so 10 pulses are allowed
+        if (dialerCount > 0 && dialerCount <= 10)
+        {
+            SetDialedNumber(10 - dialerCount);
+        }
+        else if (dialerCount > 10)
+        {
+            Serial.print("Invalid digits dialed: ");
+            Serial.println(dialerCount);
+        }
     }
     else if (newIsDialing && !isDialing)
     {
         //Serial.println("start");
         isDialing = true;
         isAwaitingDigit = true;
-        return;
     }
 
-    if (!isDialing) return;
+    if (!isDialing)
+    {
+        return;
+    }
 
     if (isAwaitingDigit)
     {

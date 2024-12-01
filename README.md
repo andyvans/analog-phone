@@ -12,7 +12,7 @@ This project upgrades an old 1970s G.E.C. New Zealand Ltd POTS phone. The phone 
 
 ## Feature 1: Reminder system
 
-If the receiver is on the hook (down), then you can dial number between 1 and 9. This will set a reminder for that number of minutes. When the time is up, the phone will ring 3 times.  The reminder ring can be stopped by lifting the receiver.
+If the receiver is on the hook (down), then you can dial number between 1 and 9. This will set a reminder for that number of minutes. 0 is a reminder for 30 seconds. When the time is up, the phone will ring 3 times.  The reminder ring can be stopped by lifting the receiver.
 
 ## Feature 2: Voice AI assistant
 

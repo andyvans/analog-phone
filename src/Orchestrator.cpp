@@ -9,14 +9,13 @@ Orchestrator::Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder)
 
 void Orchestrator::Tick()
 {
-    if (reminder->IsReminderTime())
+    if (reminder->IsReminderTime() && !ringer->IsRinging())
     {
         Serial.println("Reminder time. Ringer started");
-        reminder->Reset();
         ringer->StartRinging(3);
     }
 
-    if (reminder->IsReminderTime() && !dialer->IsReceiverDown())
+    if (reminder->IsReminderTime() && ringer->IsRinging() && !dialer->IsReceiverDown())
     {
         Serial.println("Reminder acknowledged. Ringer stopped");
         reminder->Reset();
@@ -29,13 +28,8 @@ void Orchestrator::Tick()
         auto dialedNumber = dialer->GetDialedNumber();
         dialer->Reset();
 
-        if (dialedNumber > 0)
-        {
-            reminder->SetReminder(dialedNumber);
-        }
-        else
-        {
-            Serial.println("Cannot set reminder for 0 minutes");
-        }
+        // If the dialed number is 0, then set a reminder for 30 seconds, else minutes
+        auto reminderSeconds = dialedNumber == 0 ? 30 : dialedNumber * 60;
+        reminder->SetReminder(reminderSeconds);
     }
 }

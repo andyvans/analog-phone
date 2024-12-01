@@ -12,14 +12,15 @@ void Reminder::Tick()
     {
         isReminderTime = true;
         isReminderSet = false;
+        reminderStartTime = millis();
     }
 }
 
-void Reminder::SetReminder(int reminderMinutes)
+void Reminder::SetReminder(unsigned long reminderSeconds)
 {
-    Serial.print("Reminder in minutes: ");
-    Serial.println(reminderMinutes);
-    reminderTime = millis() + (reminderMinutes * 60 * 1000);
+    Serial.print("Reminder in seconds: ");
+    Serial.println(reminderSeconds);
+    reminderTime = millis() + (reminderSeconds * 1000);
     isReminderSet = true;
 }
 

@@ -17,6 +17,7 @@ public:
   void Tick();
   void StartRinging(int ringCount);
   void StopRinging();
+  bool IsRinging();
 
 private:
   void RestartSequence();

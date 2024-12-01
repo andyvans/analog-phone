@@ -20,6 +20,11 @@ void Ringer::StopRinging()
     isRinging = false;
 }
 
+bool Ringer::IsRinging()
+{
+    return isRinging;
+}
+
 void Ringer::Tick()
 {
     if (isRinging)

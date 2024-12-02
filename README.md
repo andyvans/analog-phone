@@ -19,10 +19,11 @@ If the receiver is on the hook (down), then you can dial number between 1 and 9.
 Not built yet. Initial thoughts...
 
 If the recever is off the hook, then you can dial a number to activate the voice assistant. The number dialed will trigger actions:
-- 1: Listen to a weather report
-- 2: Listen to a joke
-- 3: Speak to surfer dude
-- 4: Speak to William Shakespeare
+- Listen to a weather report
+- Listen to a joke
+- Speak to surfer dude
+- Translate english to X
+- Speak to William Shakespeare
 
 ## Electronics
 

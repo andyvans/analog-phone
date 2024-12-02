@@ -23,9 +23,9 @@ void Ringer::StopRinging()
 void Ringer::RingBell(int count)
 {
     count = max(count, 1);
-    Serial.print("Ring bell:");
+    Serial.print("Ring bell: ");
     Serial.println(count);
-    lastAlertTime = millis() + (count * 100);
+    lastAlertTime = millis() + (count * 50);
     isAlerting = true;
 }
 

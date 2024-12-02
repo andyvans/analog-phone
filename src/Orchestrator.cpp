@@ -41,5 +41,6 @@ void Orchestrator::Tick()
         // If the dialed number is 0, then set a reminder for 30 seconds, else minutes
         auto reminderSeconds = dialedNumber == 0 ? 5 : dialedNumber * 60;
         reminder->SetReminder(reminderSeconds);
+        ringer->RingBell(1);
     }
 }

@@ -20,6 +20,15 @@ void Ringer::StopRinging()
     isRinging = false;
 }
 
+void Ringer::RingBell(int count)
+{
+    count = max(count, 1);
+    Serial.print("Ring bell:");
+    Serial.println(count);
+    lastAlertTime = millis() + (count * 100);
+    isAlerting = true;
+}
+
 bool Ringer::IsRinging()
 {
     return isRinging;
@@ -27,7 +36,13 @@ bool Ringer::IsRinging()
 
 void Ringer::Tick()
 {
-    if (isRinging)
+    // Expire the alert
+    if (isAlerting && millis() > lastAlertTime)
+    {
+        isAlerting = false;
+    }
+
+    if (isRinging || isAlerting)
     {
         Ring();
     }

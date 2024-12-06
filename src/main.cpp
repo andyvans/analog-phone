@@ -11,11 +11,13 @@
 #include "Dialer.h"
 #include "Reminder.h"
 #include "Orchestrator.h"
+#include "AudioOut.h"
 
 Ringer* ringer;
 Dialer* dialer;
 Reminder* reminder;
 Orchestrator* orchestrator;
+AudioOut* audioOut;
 
 TaskHandle_t DeviceTask;
 TaskHandle_t AudioTask;
@@ -30,6 +32,9 @@ void setup()
   dialer = new Dialer();
   reminder = new Reminder();
   orchestrator = new Orchestrator(dialer, ringer, reminder);
+  audioOut = new AudioOut();
+
+  audioOut->Setup();
 
   xTaskCreatePinnedToCore(ProcessDevices, "Dev", 10000, NULL, 1, &DeviceTask, 0);
   xTaskCreatePinnedToCore(ProcessAudio, "Audio", 10000, NULL, 1, &AudioTask, 1);
@@ -56,6 +61,7 @@ void ProcessAudio(void* parameter)
 {
   for (;;)
   {
+    audioOut->Tick();
     vTaskDelay(1);
   }
 }

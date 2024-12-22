@@ -18,9 +18,9 @@ private:
     //AudioInfo infoTo;
     //SineWaveGenerator<int16_t> sineWave;
     //GeneratedSoundStream<int16_t> sound;
-    //FormatConverterStream converter;
-    AnalogAudioStream analogIn;
-    //I2SStream in;
+    FormatConverter converter;
+    //AnalogAudioStream analogIn;
+    I2SStream in;
     I2SStream out;
     StreamCopy copier;
 };

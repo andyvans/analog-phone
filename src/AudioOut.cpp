@@ -1,12 +1,12 @@
 #include "AudioOut.h"
 
 AudioOut::AudioOut() :
-    infoFrom(44100, 1, 16),
+    infoFrom(48000, 2, 32),
     //infoTo(44100, 2, 16),
     //sineWave(32000),
     //sound(sineWave),
     //converter(in),    
-    copier(out, analogIn)
+    copier(out, in)
 {
 }
 
@@ -16,9 +16,12 @@ void AudioOut::Setup()
 
     // start I2S in
     Serial.println("starting audio in");
-    auto configIn = analogIn.defaultConfig(RX_MODE);
+    //auto configIn = analogIn.defaultConfig(RX_MODE);
+    //configIn.copyFrom(infoFrom);
+    //configIn.adc_pin = MIC_PIN;
+
+    auto configIn = in.defaultConfig(RX_MODE);
     configIn.copyFrom(infoFrom);
-    configIn.adc_pin = MIC_PIN;
     //configIn.copyFrom(infoFrom);
     //configIn.i2s_format = I2S_STD_FORMAT;
     //configIn.is_master = true;
@@ -36,7 +39,7 @@ void AudioOut::Setup()
     //configIn.fixed_mclk = 0;
     //configIn.pin_mck = I2S_MCLK_IN;
     //configIn.channels = 2;
-    analogIn.begin(configIn);
+    in.begin(configIn);
 
     //converter.begin(infoFrom, infoTo);
 

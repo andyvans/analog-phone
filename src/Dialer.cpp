@@ -51,7 +51,7 @@ void Dialer::Tick()
     // Check if the receiver is down
     auto newIsReceiverDown = digitalRead(RECEIVER_PIN) == HIGH;
     auto newReceiverChangeTime = millis();
-    auto allowChange = (newReceiverChangeTime - receiverChangeTime) > 200;
+    auto allowChange = (newReceiverChangeTime - receiverChangeTime) > 20;
     if (!isReceiverDown && newIsReceiverDown && allowChange)
     {
         Serial.println("Receiver down");

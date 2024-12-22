@@ -41,8 +41,3 @@ Ring sequence:
 - Ring for 400ms at 66Hz
 - Pause for 1200ms
 - Repeat
-
-## Dependencies
-
-Unzip the libraries to the `lib` folder in the project directory.
-- https://github.com/pschatzmann/arduino-audio-tools/tree/main

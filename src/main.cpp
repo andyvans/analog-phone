@@ -32,12 +32,12 @@ void setup()
   dialer = new Dialer();
   reminder = new Reminder();
   orchestrator = new Orchestrator(dialer, ringer, reminder);
-  audioOut = new AudioOut();
 
+  audioOut = new AudioOut();
   audioOut->Setup();
 
-  xTaskCreatePinnedToCore(ProcessDevices, "Dev", 10000, NULL, 1, &DeviceTask, 0);
-  xTaskCreatePinnedToCore(ProcessAudio, "Audio", 10000, NULL, 1, &AudioTask, 1);
+  xTaskCreatePinnedToCore(ProcessAudio, "Audio", 10000, NULL, 1, &AudioTask, 0);
+  xTaskCreatePinnedToCore(ProcessDevices, "Device", 10000, NULL, 1, &DeviceTask, 1);
 }
 
 void loop()

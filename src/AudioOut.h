@@ -13,9 +13,14 @@ public:
     void Tick();
 
 private:
-    AudioInfo info;
-    SineWaveGenerator<int16_t> sineWave;
-    GeneratedSoundStream<int16_t> sound;
+    int sampleRate;
+    AudioInfo infoFrom;
+    //AudioInfo infoTo;
+    //SineWaveGenerator<int16_t> sineWave;
+    //GeneratedSoundStream<int16_t> sound;
+    //FormatConverterStream converter;
+    AnalogAudioStream analogIn;
+    //I2SStream in;
     I2SStream out;
     StreamCopy copier;
 };

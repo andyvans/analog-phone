@@ -35,6 +35,7 @@ void setup()
 
   audioOut = new AudioOut();
   audioOut->Setup();
+  audioOut->StartRadio();
 
   xTaskCreatePinnedToCore(ProcessAudio, "Audio", 10000, NULL, 1, &AudioTask, 0);
   xTaskCreatePinnedToCore(ProcessDevices, "Device", 10000, NULL, 1, &DeviceTask, 1);

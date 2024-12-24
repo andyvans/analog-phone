@@ -10,17 +10,24 @@ class AudioOut
 public:
     AudioOut();
     void Setup();
+    void StartAnalogMic();
+    void StartRadio();
+    void Stop();
     void Tick();
 
 private:
-    int sampleRate;
-    AudioInfo infoFrom;
+    //int sampleRate;
+    AudioInfo* infoFrom;
     //AudioInfo infoTo;
     //SineWaveGenerator<int16_t> sineWave;
     //GeneratedSoundStream<int16_t> sound;
     //FormatConverterStream converter;
-    AnalogAudioStream analogIn;
-    //I2SStream in;
-    I2SStream out;
-    StreamCopy copier;
+
+    URLStream* urlStream;
+    ResampleStream* resampler;
+    EncodedAudioStream* decodedStream;
+
+    AudioStream* in;
+    I2SStream* out;
+    StreamCopy* copier;
 };

@@ -2,27 +2,22 @@
 #include <Arduino.h>
 #include "Constants.h"
 #include <AudioTools.h>
+#include <AudioTools/Communication/AudioHttp.h>
 
 using namespace audio_tools;
 
-class AudioOut
+class AudioCapture
 {
 public:
-    AudioOut();
+    AudioCapture();
     void Setup();
-    void StartAnalogMic();
-    void StartRadio();
+    void Start();
     void Stop();
     void Tick();
 
 private:
-    //int sampleRate;
     AudioInfo* infoFrom;
-    //AudioInfo infoTo;
-    //SineWaveGenerator<int16_t> sineWave;
-    //GeneratedSoundStream<int16_t> sound;
-    //FormatConverterStream converter;
-
+    
     URLStream* urlStream;
     ResampleStream* resampler;
     EncodedAudioStream* decodedStream;

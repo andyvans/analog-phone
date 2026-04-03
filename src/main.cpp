@@ -11,13 +11,15 @@
 #include "Dialer.h"
 #include "Reminder.h"
 #include "Orchestrator.h"
-#include "AudioOut.h"
+#include "AudioCapture.h"
+#include "TextToAudio.h"
 
 Ringer* ringer;
 Dialer* dialer;
 Reminder* reminder;
 Orchestrator* orchestrator;
-AudioOut* audioOut;
+AudioCapture* audioCapture;
+TextToAudio* textToAudio;
 
 TaskHandle_t DeviceTask;
 TaskHandle_t AudioTask;
@@ -28,14 +30,20 @@ void ProcessAudio(void* parameter);
 void setup()
 {
   Serial.begin(115200);
+  AudioToolsLogger.begin(Serial, AudioToolsLogLevel::Warning);
+  
   ringer = new Ringer();
   dialer = new Dialer();
   reminder = new Reminder();
-  orchestrator = new Orchestrator(dialer, ringer, reminder);
 
-  audioOut = new AudioOut();
-  audioOut->Setup();
-  audioOut->StartRadio();
+  textToAudio = new TextToAudio();
+  textToAudio->Setup();
+
+  orchestrator = new Orchestrator(dialer, ringer, reminder, textToAudio);
+
+  //audioCapture = new AudioCapture();
+  //audioCapture->Setup();
+  //audioCapture->Start();
 
   xTaskCreatePinnedToCore(ProcessAudio, "Audio", 10000, NULL, 1, &AudioTask, 0);
   xTaskCreatePinnedToCore(ProcessDevices, "Device", 10000, NULL, 1, &DeviceTask, 1);
@@ -62,7 +70,8 @@ void ProcessAudio(void* parameter)
 {
   for (;;)
   {
-    audioOut->Tick();
+    audioCapture->Tick();
+    textToAudio->Tick();
     vTaskDelay(1);
   }
 }

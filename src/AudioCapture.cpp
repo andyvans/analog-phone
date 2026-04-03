@@ -1,17 +1,16 @@
-#include "AudioOut.h"
+#include "AudioCapture.h"
 #include "AudioTools/AudioCodecs/CodecMP3Helix.h"
 #include "_Secrets.h"
 
-AudioOut::AudioOut()
+AudioCapture::AudioCapture()
 {
 }
 
-void AudioOut::Setup()
+void AudioCapture::Setup()
 {
-    AudioToolsLogger.begin(Serial, AudioToolsLogLevel::Warning);
 }
 
-void AudioOut::Stop()
+void AudioCapture::Stop()
 {
     if (copier != nullptr)
     {
@@ -39,8 +38,9 @@ void AudioOut::Stop()
     }
 }
 
-void AudioOut::StartAnalogMic()
+void AudioCapture::Start()
 {
+    /*
     Serial.println("Starting analog mic audio in");
 
     infoFrom = new AudioInfo(44100, 1, 16);
@@ -66,38 +66,10 @@ void AudioOut::StartAnalogMic()
     //configOut.pin_data = I2S_DATA_OUT;
     //configOut.channels = 1;
     out->begin(configOut);
+    */
 }
 
-void AudioOut::StartRadio()
-{
-    const char* wifi = WIFI_SSID;
-    const char* password = WIFI_PASSWORD;
-
-    infoFrom = new AudioInfo(44100, 1, 16);
-
-    // start I2S output
-    Serial.println("Starting I2S audio out");
-    out = new I2SStream();
-    auto configOut = out->defaultConfig(TX_MODE);
-    configOut.copyFrom(*infoFrom);
-    configOut.port_no = 1;
-    //configOut.pin_bck = I2S_BCLK_OUT;
-    //configOut.pin_ws = I2S_LRC_OUT;
-    //configOut.pin_data = I2S_DATA_OUT;
-    //configOut.channels = 1;
-    out->begin(configOut);
-
-    Serial.println("Starting analog mic audio in");
-    urlStream = new URLStream(wifi, password);
-    resampler = new ResampleStream(*out);
-    decodedStream = new EncodedAudioStream(resampler, new MP3DecoderHelix());
-    copier = new StreamCopy(*decodedStream, *urlStream);
-
-    urlStream->begin("http://stream.srg-ssr.ch/m/rsj/mp3_128", "audio/mp3");
-    decodedStream->begin();
-}
-
-void AudioOut::Tick()
+void AudioCapture::Tick()
 {
     if (copier == nullptr) return;
     copier->copy();

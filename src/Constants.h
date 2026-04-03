@@ -9,6 +9,7 @@
 
 // Analog audio pin
 #define MIC_PIN 35
+
 // I2S audio in pins
 //#define I2S_DATA_IN 9
 //#define I2S_BCLK_IN 6

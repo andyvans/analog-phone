@@ -1,9 +1,14 @@
 #include "AudioCapture.h"
-#include "AudioTools/AudioCodecs/CodecMP3Helix.h"
 #include "_Secrets.h"
 
 AudioCapture::AudioCapture()
 {
+    copier = nullptr;
+    in = nullptr;
+    out = nullptr;
+    infoFrom = nullptr;
+    urlStream = nullptr;
+    resampler = nullptr;
 }
 
 void AudioCapture::Setup()
@@ -45,7 +50,7 @@ void AudioCapture::Start()
 
     infoFrom = new AudioInfo(44100, 1, 16);
 
-    // Setup audio input    
+    // Setup audio input
     auto analogStream = new AnalogAudioStream();
     in = analogStream;
     copier = new StreamCopy(*out, *analogStream);

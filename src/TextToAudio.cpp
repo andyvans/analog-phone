@@ -1,6 +1,8 @@
 #include "TextToAudio.h"
 #include "_Secrets.h"
 
+#define AZURE_SPEECH_REGION "australiaeast"
+
 TextToAudio::TextToAudio()
 {
 }
@@ -30,6 +32,7 @@ void TextToAudio::Setup()
 
 void TextToAudio::Play(const String& text)
 {
+    Serial.println("Playing text: " + text);
     Stop();
 
     const String language = "en-US";
@@ -37,7 +40,7 @@ void TextToAudio::Play(const String& text)
     const String voice = "en-US-JennyNeural";
     const String url = String("https://") + AZURE_SPEECH_REGION + ".tts.speech.microsoft.com/cognitiveservices/v1";
     const String ssml = "<speak version='1.0' xml:lang='" + language + "'><voice xml:lang='" + language
-                      + "' xml:gender='" + gender + "' name='" + voice + "'>" + text + "</voice></speak>";
+        + "' xml:gender='" + gender + "' name='" + voice + "'>" + text + "</voice></speak>";
 
     urlStream->begin(url.c_str(), "audio/wav", POST, "application/ssml+xml", ssml.c_str());
 

@@ -6,6 +6,8 @@ Orchestrator::Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, T
     this->ringer = ringer;
     this->reminder = reminder;
     this->textToAudio = textToAudio;
+
+    textToAudio->Play("The system is online");
 }
 
 void Orchestrator::Tick()

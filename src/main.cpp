@@ -31,7 +31,7 @@ void setup()
 {
   Serial.begin(115200);
   AudioToolsLogger.begin(Serial, AudioToolsLogLevel::Warning);
-  
+
   ringer = new Ringer();
   dialer = new Dialer();
   reminder = new Reminder();
@@ -45,7 +45,10 @@ void setup()
   //audioCapture->Setup();
   //audioCapture->Start();
 
-  xTaskCreatePinnedToCore(ProcessAudio, "Audio", 10000, NULL, 1, &AudioTask, 0);
+  delay(1000);
+  textToAudio->Play("The system is online");
+
+  xTaskCreatePinnedToCore(ProcessAudio, "Audio", 10000, NULL, 1, &AudioTask, 1);
   xTaskCreatePinnedToCore(ProcessDevices, "Device", 10000, NULL, 1, &DeviceTask, 1);
 }
 

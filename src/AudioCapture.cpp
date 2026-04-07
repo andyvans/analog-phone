@@ -76,6 +76,6 @@ void AudioCapture::Start()
 
 void AudioCapture::Tick()
 {
-    if (copier == nullptr) return;
-    copier->copy();
+    //if (copier == nullptr) return;
+    //copier->copy();
 }

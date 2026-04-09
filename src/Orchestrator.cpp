@@ -1,4 +1,6 @@
 #include "Orchestrator.h"
+#include "_Secrets.h"
+#include <WiFi.h>
 
 Orchestrator::Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, ITextToAudio* textToAudio)
 {
@@ -6,6 +8,21 @@ Orchestrator::Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, I
     this->ringer = ringer;
     this->reminder = reminder;
     this->textToAudio = textToAudio;
+}
+
+void Orchestrator::Setup()
+{
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    Serial.print("Connecting to WiFi");
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println(" connected!");
+    Serial.println("IP: " + WiFi.localIP().toString());
+
+    textToAudio->Play("The system is online");
 }
 
 void Orchestrator::Tick()

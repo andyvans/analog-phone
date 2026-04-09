@@ -10,6 +10,7 @@ class Orchestrator
 {
 public:
     Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, ITextToAudio* textToAudio);
+    void Setup();
     void Tick();
 
 private:

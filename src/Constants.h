@@ -1,6 +1,6 @@
 // L293D pins for bell ringer
-#define H_BRIDGE_PIN1 12
-#define H_BRIDGE_PIN2 13
+#define H_BRIDGE_PIN1 16
+#define H_BRIDGE_PIN2 17
 
 // Dialer pins
 #define DIALER_PIN1 4

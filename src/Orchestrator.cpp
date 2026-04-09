@@ -1,6 +1,6 @@
 #include "Orchestrator.h"
 
-Orchestrator::Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, TextToAudio* textToAudio)
+Orchestrator::Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, ITextToAudio* textToAudio)
 {
     this->dialer = dialer;
     this->ringer = ringer;

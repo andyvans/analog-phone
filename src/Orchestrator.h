@@ -4,17 +4,17 @@
 #include "Dialer.h"
 #include "Ringer.h"
 #include "Reminder.h"
-#include "TextToAudio.h"
+#include "ITextToAudio.h"
 
 class Orchestrator
 {
 public:
-    Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, TextToAudio* textToAudio);
+    Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, ITextToAudio* textToAudio);
     void Tick();
 
 private:
     Dialer* dialer;
     Ringer* ringer;
     Reminder* reminder;
-    TextToAudio* textToAudio;
+    ITextToAudio* textToAudio;
 };

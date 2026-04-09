@@ -1,18 +1,18 @@
-#include "TextToAudio.h"
+#include "TextToAudioAzure.h"
 #include "_Secrets.h"
 
 #define AZURE_SPEECH_REGION "australiaeast"
 
-TextToAudio::TextToAudio()
+TextToAudioAzure::TextToAudioAzure()
 {
 }
 
-TextToAudio::~TextToAudio()
+TextToAudioAzure::~TextToAudioAzure()
 {
     Teardown();
 }
 
-void TextToAudio::Setup()
+void TextToAudioAzure::Setup()
 {
     i2s = new I2SStream();
     auto configI2S = i2s->defaultConfig(TX_MODE);
@@ -30,10 +30,9 @@ void TextToAudio::Setup()
     urlStream->addRequestHeader(USER_AGENT, String(String("Arduino with Audiotools version:") + AUDIOTOOLS_VERSION).c_str());
 }
 
-void TextToAudio::Play(const String& text)
+void TextToAudioAzure::Play(const String& text)
 {
     Serial.println("Playing text: " + text);
-    Stop();
 
     const String language = "en-US";
     const String gender = "Female";
@@ -47,7 +46,7 @@ void TextToAudio::Play(const String& text)
     copier = new StreamCopy(*i2s, *urlStream);
 }
 
-void TextToAudio::Stop()
+void TextToAudioAzure::Stop()
 {
     if (copier != nullptr)
     {
@@ -61,7 +60,7 @@ void TextToAudio::Stop()
     }
 }
 
-void TextToAudio::Teardown()
+void TextToAudioAzure::Teardown()
 {
     Stop();
     if (urlStream != nullptr)
@@ -77,7 +76,7 @@ void TextToAudio::Teardown()
     }
 }
 
-void TextToAudio::Tick()
+void TextToAudioAzure::Tick()
 {
     if (copier == nullptr) return;
     copier->copy();

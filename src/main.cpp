@@ -12,14 +12,14 @@
 #include "Reminder.h"
 #include "Orchestrator.h"
 #include "AudioCapture.h"
-#include "TextToAudio.h"
+#include "TextToAudioAzure.h"
 
 Ringer* ringer;
 Dialer* dialer;
 Reminder* reminder;
 Orchestrator* orchestrator;
 AudioCapture* audioCapture;
-TextToAudio* textToAudio;
+ITextToAudio* textToAudio;
 
 TaskHandle_t DeviceTask;
 TaskHandle_t AudioTask;
@@ -36,7 +36,7 @@ void setup()
   dialer = new Dialer();
   reminder = new Reminder();
 
-  textToAudio = new TextToAudio();
+  textToAudio = new TextToAudioAzure();
   textToAudio->Setup();
 
   orchestrator = new Orchestrator(dialer, ringer, reminder, textToAudio);
@@ -45,11 +45,11 @@ void setup()
   //audioCapture->Setup();
   //audioCapture->Start();
 
-  delay(1000);
-  textToAudio->Play("The system is online");
-
   xTaskCreatePinnedToCore(ProcessAudio, "Audio", 10000, NULL, 1, &AudioTask, 1);
   xTaskCreatePinnedToCore(ProcessDevices, "Device", 10000, NULL, 1, &DeviceTask, 1);
+
+  delay(1000);
+  textToAudio->Play("The system is online");
 }
 
 void loop()

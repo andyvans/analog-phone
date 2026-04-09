@@ -22,6 +22,7 @@ void Orchestrator::Setup()
     Serial.println(" connected!");
     Serial.println("IP: " + WiFi.localIP().toString());
 
+    ringer->RingBell(1);
     textToAudio->Play("The system is online");
 }
 

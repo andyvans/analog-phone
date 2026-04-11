@@ -18,10 +18,9 @@ void Orchestrator::Setup()
     {
         delay(500);
         Serial.print(".");
-    }
-    Serial.println(" connected!");
-    Serial.println("IP: " + WiFi.localIP().toString());
-
+    }    
+    
+    Serial.println("Wifi connected. IP: " + WiFi.localIP().toString());
     ringer->RingBell(1);
     textToAudio->Play("The system is online");
 }

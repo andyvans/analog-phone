@@ -13,7 +13,7 @@ Orchestrator::Orchestrator(Dialer* dialer, Ringer* ringer, Reminder* reminder, I
 void Orchestrator::Setup()
 {
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-    Serial.print("Connecting to WiFi");
+    Serial.println("Connecting to Wifi");
     while (WiFi.status() != WL_CONNECTED)
     {
         delay(500);
@@ -22,7 +22,7 @@ void Orchestrator::Setup()
     
     Serial.println("Wifi connected. IP: " + WiFi.localIP().toString());
     ringer->RingBell(1);
-    textToAudio->Play("The system is online");
+    textToAudio->Play("The system is online. Please set a reminder by dialing a number and picking up the receiver. Dialing 0 will set a reminder for 5 seconds, while dialing any other number will set a reminder for that many minutes.");
 }
 
 void Orchestrator::Tick()
